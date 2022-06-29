@@ -16,12 +16,12 @@ class car:
         self.seller_id = data['seller_id']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
-        self.seller = data['first_name'] + " " + data['last_name']
+        self.seller = data['seller']
         self.status = 'Not Sold'
 
     @classmethod
     def new_car(cls, data):
-        query = "INSERT INTO car_dealz_db.cars (price, model, make, year, description, seller_id) VALUES (%(price)s, %(model)s, %(make)s, %(year)s, %(description)s, %(seller_id)s)"
+        query = "INSERT INTO car_dealz_db.cars (price, model, make, year, description, seller_id, seller) VALUES (%(price)s, %(model)s, %(make)s, %(year)s, %(description)s, %(seller_id)s, %(seller)s)"
         results = connectToMySQL(db).query_db(query, data)
         return results
 
@@ -33,7 +33,7 @@ class car:
 
     @classmethod
     def get_all_cars(cls):
-        query = "SELECT * FROM car_dealz_db.cars JOIN car_dealz_db.users ON seller_id = users.id LEFT JOIN car_dealz_db.cars_for_sell ON users.id = user_id AND cars.id = car_id;"
+        query = "SELECT * FROM car_dealz_db.cars LEFT JOIN car_dealz_db.cars_for_sell ON cars.id = car_id LEFT JOIN car_dealz_db.users ON user_id = users.id;"
         results = connectToMySQL(db).query_db(query)
         cars = []
         for i in results:
@@ -48,10 +48,8 @@ class car:
         query = "SELECT * FROM car_dealz_db.cars JOIN car_dealz_db.users ON seller_id = users.id LEFT JOIN car_dealz_db.cars_for_sell ON users.id = user_id AND cars.id = car_id WHERE cars.id = %(id)s;"
         results = connectToMySQL(db).query_db(query, {'id': id})
         car = cls(results[0])
-        print(results[0]["user_id"])
         if results[0]["user_id"] != None:
             car.status = "Sold"
-        print(car.status)
         return car
 
     @classmethod

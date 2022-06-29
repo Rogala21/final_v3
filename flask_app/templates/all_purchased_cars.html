@@ -39,12 +39,14 @@
                     <th scope="col">Make</th>
                     <th scope="col">Model</th>
                     <th scope="col">Year</th>
+                    <th scope="col">Sell</th>
                 </tr>
                 {% for car in cars %}
                 <tr>
                     <td>{{car.make}}</td>
                     <td>{{car.model}}</td>
                     <td>{{car.year}}</td>
+                    <td><a href="/sell/{{car.id}}" class="btn btn-primary me-md-2">Sell</a></td>
                 </tr>
                 {% endfor %}
             </table>

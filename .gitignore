@@ -168,3 +168,26 @@ cython_debug/
 #.idea/
 
 # End of https://www.toptal.com/developers/gitignore/api/flask
+
+
+
+[Unit]
+Description=Gunicorn instance
+After=network.target
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/final_v3
+Environment="PATH=/home/ubuntu/final_v3/venv/bin"
+ExecStart=/home/ubuntu/final_v3/venv/bin/gunicorn --workers 3 --bind unix:black_belt.sock -m 007 wsgi:application
+[Install]
+WantedBy=multi-user.target
+
+server {
+    listen 80;
+    server_name 3.82.224.161;
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/ubuntu/final_v3/black_belt.sock;
+    }
+}

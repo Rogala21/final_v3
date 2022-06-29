@@ -53,6 +53,7 @@
                 <label for="description">Description: </label><br>
                 <textarea name="description" rows="4" cols="50" class="form-control" required></textarea><br>
                 <input type="text" value="{{user.id}}" name="seller_id" hidden>
+                <input type="text" value="{{user.first_name}} {{user.last_name}}" name="seller" hidden>
                 <button type="submit" class="btn btn-primary">Add</button>
             </form>
         </div>
