@@ -50,7 +50,7 @@
                     <td>{{car.year}}</td>
                     <td>{{car.seller}}</td>
                     <td>{% if user.id == car.seller_id %}<a href="/dashboard/edit/car/{{car.id}}">Edit</a> | <a href="/dashboard/delete/{{car.id}}/process">Delete</a> | {% endif %}
-                        {% if car.seller_id == user.id %}<a href="/dashboard/car/{{car.id}}">View</a>{% elif car.status == 'Sold' %}SOLD{% else %}<a href="/dashboard/car/{{car.id}}">View</a>{% endif %}</td>
+                        {% if car.status == 'Sold' %}SOLD{% else %}<a href="/dashboard/car/{{car.id}}">View</a>{% endif %}</td>
                 </tr>
                 {% endfor %}
             </table>
