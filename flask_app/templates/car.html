@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <title>Car</title>
+    <style>
+        #main {
+            display: flex;
+            justify-content: space-evenly;
+        }
+        #car {
+            border: 1px solid purple;
+            padding: 2em;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1 class="text-center"></h1>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="/dashboard" class="btn btn-primary me-md-2">Home</a>
+            <a href="/logout" class="btn btn-danger me-md-2">Logout</a>
+        </div>
+    </div>
+    <div id="main">
+        <div id="car">
+            <dt>Seller: </dt>
+            <p>{{car.seller}}</p>
+            <dt>Price: </dt>
+            <p>${{car.price}}</p>
+            <dt>Make:</dt>
+            <p>{{car.make}}</p>
+            <dt>Model: </dt>
+            <p>{{car.model}}</p>
+            <dt>Year: </dt>
+            <p>{{car.year}}</p>
+            <dt>Description: </dt>
+            <p>{{car.description}}</p>
+            {% if car.status == 'Sold' %}
+            <a href="/sell/{{car.id}}" class="btn btn-primary me-md-2">Sell</a>
+            {% else %}
+            <a href="/buy/{{car.id}}" class="btn btn-primary me-md-2">Purchase</a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

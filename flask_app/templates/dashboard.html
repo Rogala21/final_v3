@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <title>Dashboard</title>
+    <style>
+        #main {
+            display: flex;
+            justify-content: space-evenly;
+        }
+        #car {
+            border: 1px solid orange;
+            padding: 2em;
+            margin-top: 5px;
+        }
+        #owned_car {
+            border: 1px solid red;
+            padding: 2em;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1 class="text-center">Welcome {{user.first_name}}!!!</h1>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="/dashboard/new/car" class="btn btn-primary me-md-2">New Car</a>
+            <a href="/user" class="btn btn-success me-md-2">My Cars</a>
+            <a href="/logout" class="btn btn-danger me-md-2">Logout</a>
+        </div>
+    </div>
+    <div id="main">
+        <div id="car" >
+            <h3>Cars for Sale</h3>
+            <table class="table table-dark">
+                <tr>
+                    <th scope="col">Make</th>
+                    <th scope="col">Model</th>
+                    <th scope="col">Year</th>
+                    <th scope="col">Seller</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                {% for car in cars %}
+                <tr>
+                    <td>{{car.make}}</td>
+                    <td>{{car.model}}</td>
+                    <td>{{car.year}}</td>
+                    <td>{{car.seller}}</td>
+                    <td>{% if user.id == car.seller_id %}<a href="/dashboard/edit/car/{{car.id}}">Edit</a> | <a href="/dashboard/delete/{{car.id}}/process">Delete</a> | {% endif %}
+                        {% if car.seller_id == user.id %}<a href="/dashboard/car/{{car.id}}">View</a>{% elif car.status == 'Sold' %}SOLD{% else %}<a href="/dashboard/car/{{car.id}}">View</a>{% endif %}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+</html>
